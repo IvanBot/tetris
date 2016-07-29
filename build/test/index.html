@@ -1,0 +1,44 @@
+<!doctype html>
+
+<head>
+  <title>Тетрис</title>
+  <meta charset="utf-8">
+  <!-- <link rel="stylesheet" href="css/common.css"></style> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" defer></script> 
+  <script src="https://code.createjs.com/easeljs-0.8.2.min.js" defer></script>
+  <script src="figure.js" defer></script>
+  <script src="main.js" defer></script>
+  <style>
+      html { 
+        background: #F7F7F7; 
+      }
+      #board {
+        margin: 0 auto;
+        display: block;
+        border: 2px solid black;
+        border-bottom: 5px solid green;
+        background: white;
+      }
+      #lines {
+        display: block;
+        width: 240px;
+        margin: 0 auto;
+        margin-top: 2em;
+        color: #444;
+        font-size: 1.5em;
+      }
+  </style>
+</head>
+
+<body>
+
+  <div id="grid">
+    <canvas id="board"></canvas>
+  </div>
+
+  <div id="scope">
+    <span id="lines"></span>
+    <span id="time"></span>
+  </div>
+
+</body>
