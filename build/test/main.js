@@ -1,7 +1,5 @@
 "use strict";
 
-// http://codepen.io/B8bop/pen/NqjgOq
-
 var canvas = document.getElementById('board');
 var ctx = canvas.getContext("2d");
 var linecount = document.getElementById('lines');
@@ -11,6 +9,13 @@ var height = 20;
 var tilesz = 24;
 canvas.width = width * tilesz;
 canvas.height = height * tilesz;
+
+// var canvas2 = document.getElementById('next');
+// var ctx2 = canvas2.getContext("2d");
+// var width2 = 4;
+// var height2 = 4;
+// canvas2.width = width2 * tilesz;
+// canvas2.height = height2 * tilesz;
 
 var pieces = [
 	[I, "cyan"],
@@ -32,6 +37,30 @@ for (var r = 0; r < height; r++) {
 	}
 }
 
+function generateField() {
+	var colors=['#222222','#333333'];
+	fieldSprite = new createjs.Shape();
+	// MASKER TO MASK THE UPPER PORTION OF THE GAME
+	masker = new createjs.Shape();
+	masker.graphics.beginFill('#ffffff');
+	masker.graphics.rect(0,tilesz*2,tilesz*height,tilesz*(width-2));
+	fieldSprite.mask = masker;
+	fieldSprite.graphics.beginStroke('#000000');
+	for (var i = 0; i < width; i++) {
+		fieldArray[i] = [];
+		landedArr[i] = [];
+		for (var j = 0; j < height; j++) {
+			fieldArray[i][j]=0;
+			landedArr[i][j]=null;
+			fieldSprite.graphics.beginFill(colors[((j % 2) + (i % 2)) % 2], 0);
+			fieldSprite.graphics.rect(tilesz*j,tilesz*i,tilesz,tilesz);
+		}
+	}
+	stage.addChild(fieldSprite);
+	colors=null;
+}
+
+
 function drawSquare(x, y) {
 	ctx.fillRect(x * tilesz, y * tilesz, tilesz, tilesz);
 	var ss = ctx.strokeStyle;
@@ -42,7 +71,7 @@ function drawSquare(x, y) {
 	ctx.strokeStyle = ss;
 }
 
-function drawBoard() {
+function drawBoard(ctx) {
 	var fs = ctx.fillStyle;
 	for (var y = 0; y < height; y++) {
 		for (var x = 0; x < width; x++) {
@@ -195,7 +224,7 @@ Piece.prototype.lock = function() {
 
 	if (nlines > 0) {
 		lines += nlines;
-		drawBoard();
+		drawBoard(ctx);
 		linecount.textContent = "Lines: " + lines;
 	}
 };
@@ -264,47 +293,3 @@ piece = newPiece();
 drawBoard();
 linecount.textContent = "Lines: 0";
 main();
-
-
-// start: function() {
-//         if (!this._running) {            
-//             this.unsetEvents();
-//             this.create();
-//             this.timeline(false);
-//             this.move = this._running = true;
-//             this._stop = this._win = this._lose = this._pause = this._gameover = false;
-//             this.score = this.lines = this.level = 0;
-//             this.setEvents();
-//             this.fireEvent("start", [{
-//                 level: this.level, 
-//                 score: this.score, 
-//                 lines: this.lines
-//             }]);
-//         }
-//     },
-// restart: function() {
-//     if (this._stop || this._gameover || this._win) {
-//         this.stop();
-//         this.start();
-//         this.fireEvent("restart");
-//     }
-// },
-// stop: function() {
-//     clearTimeout(this._timeout_id);
-//     this._pause = this._running = false;
-//     this._stop = true;
-    
-//     for (this.y = 0; this.y <= (this.options.aY-1); this.y++) {
-//         this.deleteLine(this.y);
-//     }
-    
-//     this.fireEvent("stop");
-// },
-// pause: function() {
-//     if (!this.isAnimate && !this._gameover && !this._win) {
-//         this._pause = !this._pause;
-//         this.init = this._pause;
-//         this._running = !this._pause;
-//         this.fireEvent("pause", this._pause);
-//     }
-// },

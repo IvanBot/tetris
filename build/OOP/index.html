@@ -1,0 +1,27 @@
+<script>
+'use strict';
+
+var MyClass = function() { 
+  // Приватные атрибуты (не вызвать из объекта)
+  var _a, _b;
+  // Приватный метод
+  function _myPrivate(isbn) {
+  } 
+  // Публичный привилегированный метод
+  this.MyPublicPlus = function() {
+
+  	var _c = _a;
+
+  };
+};
+
+// Публичный непривилегированный метод.
+MyClass.prototype = {
+  MyPublic: function() {
+  }
+};
+
+// Метод MyPublicPlus будет иметь доступ к _a, _b и _myPrivate(), 
+// а MyPublic нет…
+
+</script>

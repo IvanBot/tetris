@@ -1,3 +1,5 @@
+"use strict";
+
 var tetris = {
 
 	// Shape colors 
@@ -42,6 +44,7 @@ var tetris = {
 		[[[0,0,0,0],[0,1,1,0],[0,1,1,0],[0,0,0,0]]]],
 
 	// Pre-load elements of the grid
+	// Таблица готова, просто забираются id
 	init: function() {
 		var i, j, k;
 		tetris.cells = [];
